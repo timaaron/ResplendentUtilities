@@ -28,9 +28,7 @@ static NSTimeInterval popPushAnimationDuration;
 
 -(void)bringNavbarToFont;
 
--(void)prepareForNavbarPushTransitionToViewController:(NavbarViewController*)navbarViewController;
 -(void)performNavbarPushTransitionToViewController:(NavbarViewController*)navbarViewController;
--(void)performNavbarPushTransitionCompletionToViewController:(NavbarViewController*)navbarViewController;
 
 -(void)prepareForNavbarPopTransition;
 -(void)performNavbarPopTransition;
@@ -270,8 +268,6 @@ static NSTimeInterval popPushAnimationDuration;
                 break;
         }
 
-        [navbarViewController.view setFrame:(CGRect){startChildOrigin, navbarViewController.view.frame.size}];
-
         switch (self.pushTransitionStyle)
         {
             case NavbarViewControllerTransitionToStyleToLeft:
@@ -302,7 +298,7 @@ static NSTimeInterval popPushAnimationDuration;
         //Move navbar to superview
         [self.view addSubview:navbarViewController.view];
 
-        [self prepareForNavbarPushTransitionToViewController:navbarViewController];
+        [self prepareForNavbarPushTransitionToViewController:navbarViewController withStartChildOrigin:startChildOrigin];
 
         [UIView animateWithDuration:animationDuration animations:^{
             [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
@@ -310,6 +306,7 @@ static NSTimeInterval popPushAnimationDuration;
         } completion:^(BOOL finished) {
             [self setIgnoreNavbarSetFrameOnLayout:NO];
             [navbarViewController setIgnoreNavbarSetFrameOnLayout:NO];
+
             [self.view setClipsToBounds:oldClipToBounds];
 
             //Move navbar back
@@ -439,10 +436,10 @@ static NSTimeInterval popPushAnimationDuration;
             [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
             [self performPopTransitionAnimationsWithChildOrigin:animateToChildOrigin parentOrigin:animateToParentOrigin];
         } completion:^(BOOL finished) {
+            [self.parentNBViewController.view setClipsToBounds:oldClipToBounds];
+
             [self setIgnoreNavbarSetFrameOnLayout:NO];
             [_parentNBViewController setIgnoreNavbarSetFrameOnLayout:NO];
-
-            [self.parentNBViewController.view setClipsToBounds:oldClipToBounds];
 
             [self performNavbarPopTransitionCompletion];
 
@@ -546,8 +543,9 @@ static NSTimeInterval popPushAnimationDuration;
     }
 }
 
--(void)prepareForNavbarPushTransitionToViewController:(NavbarViewController*)navbarViewController
+-(void)prepareForNavbarPushTransitionToViewController:(NavbarViewController*)navbarViewController withStartChildOrigin:(CGPoint)startChildOrigin
 {
+    [navbarViewController.view setFrame:(CGRect){startChildOrigin, navbarViewController.view.frame.size}];
 //    [self recursivelyAddChildNavbarsToNavbarForPush];
 
     [self moveNavbarToParentForPushTransitionPreperation];

@@ -1,10 +1,10 @@
-////
-////  AsynchronousImageView.m
-////  Crapple
-////
-////  Created by Ben on 5/21/12.
-////  Copyright (c) 2012 Resplendent G.P.. All rights reserved.
-////
+//
+//  AsynchronousImageView.m
+//  Crapple
+//
+//  Created by Ben on 5/21/12.
+//  Copyright (c) 2012 Resplendent G.P.. All rights reserved.
+//
 //
 //#import "AsynchronousImageView.h"
 //#import "RUAsynchronousUIImageRequest.h"
@@ -48,6 +48,11 @@
 //    return _imageRequest != nil;
 //}
 //
+//-(NSURL *)url
+//{
+//    return _imageRequest.url;
+//}
+//
 //#pragma mark - Public methods
 //-(void)cancelFetch
 //{
@@ -55,22 +60,17 @@
 //    _imageRequest = nil;
 //}
 //
-//-(void)fetchImageFromURLString:(NSString *)urlString
+//-(void)fetchImageFromURL:(NSURL*)url
 //{
-//    [self fetchImageFromURLString:urlString withCacheName:urlString];
+//    [self fetchImageFromURL:url withCacheName:url.absoluteString];
 //}
 //
-//-(NSURL *)url
-//{
-//    return _imageRequest.url;
-//}
-//
-//-(void)fetchImageFromURLString:(NSString*)urlString withCacheName:(NSString*)cacheName
+//-(void)fetchImageFromURL:(NSURL*)url withCacheName:(NSString*)cacheName
 //{
 //    [self cancelFetch];
-//
+//    
 //    [self setImage:nil];
-//
+//    
 //    if (self.loadsUsingSpinner)
 //    {
 //        if (!_spinner)
@@ -78,11 +78,12 @@
 //            _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 //            [self addSubview:_spinner];
 //        }
-//
+//        
 //        [_spinner startAnimating];
 //    }
 //
-//    _imageRequest = [[RUAsynchronousUIImageRequest alloc]initAndFetchWithURLString:urlString cacheName:cacheName delegate:self];
+//    _imageRequest = [[RUAsynchronousUIImageRequest alloc]initAndFetchWithURL:url cacheName:cacheName delegate:self];
+////    _imageRequest = [[RUAsynchronousUIImageRequest alloc]initAndFetchWithURLString:urlString cacheName:cacheName delegate:self];
 //}
 //
 //#pragma mark - Update Content
@@ -134,6 +135,16 @@
 //    {
 //        RUDLog(@"ingoring request %@",asynchronousUIImageRequest);
 //    }
+//}
+//
+//-(void)fetchImageFromURLString:(NSString*)anUrl
+//{
+//    [self fetchImageFromURLString:anUrl withCacheName:anUrl];
+//}
+//
+//-(void)fetchImageFromURLString:(NSString*)anUrl withCacheName:(NSString*)cacheName
+//{
+//    [self fetchImageFromURL:[NSURL URLWithString:anUrl] withCacheName:cacheName];
 //}
 //
 //@end

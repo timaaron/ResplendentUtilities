@@ -25,12 +25,12 @@ typedef enum {
     //Calculated after delegates
     CGFloat _modifiedSpaceBetweenCells;
     NSUInteger _numberOfRows;
-
+    
     CGFloat _lastScrollOffset;
-//    dispatch_queue_t _layoutTileQueue;
-
+    //    dispatch_queue_t _layoutTileQueue;
+    
     UIActivityIndicatorView* _topSpinner;
-
+    
     UITapGestureRecognizer* _scrollViewTap;
 }
 

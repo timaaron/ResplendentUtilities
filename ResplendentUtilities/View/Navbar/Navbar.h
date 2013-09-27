@@ -11,11 +11,14 @@
 
 @interface Navbar : UIView
 
-@property (nonatomic, readonly) CGRect titleLabelFrame;
+@property (nonatomic, readonly) CGFloat height;
 
 @property (nonatomic, readonly) UIView* animatableContentView;
 @property (nonatomic, readonly) CGRect animatableContentViewFrame;
 @property (nonatomic, readonly) CGFloat animatableContentViewHeight;
+@property (nonatomic, readonly) CGFloat animatableContentViewLowerPadding;
+
+@property (nonatomic, readonly) CGRect titleLabelFrame;
 
 @property (nonatomic, retain) NIAttributedLabel* titleLabel;
 @property (nonatomic, assign) CGFloat titleLabelTopEdgeInset;

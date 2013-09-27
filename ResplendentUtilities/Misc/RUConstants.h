@@ -22,10 +22,18 @@
 
 #define RU_METHOD_IMPLEMENTATION_NEEDED RUDLog(@"@IMPLEMENT Need to implement method")
 
-#define RU_METHOD_IMPLEMENTATION_NEEDED_EXCEPTION \
+#define RU_METHOD_OVERLOADED_IMPLEMENTATION_NEEDED_EXCEPTION \
 @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:RUStringWithFormat(@"%@ must overload",NSStringFromClass([self class])) userInfo:nil];
 
 #define RUStringWithFormat(...) [NSString stringWithFormat:__VA_ARGS__]
 
 #define RUiOSSystemVersionIsAtLeast(version) ([UIDevice currentDevice].systemVersion.floatValue >= version)
 
+#define RUSizeAdjustedToDeviceScreenSize(sourceSize) ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] ? CGSizeMake(sourceSize.width * [[UIScreen mainScreen] scale],sourceSize.height * [[UIScreen mainScreen] scale]) : sourceSize)
+
+//Enums
+typedef enum{
+    RUScrollDirectionNone = 0,
+    RUScrollDirectionDown = 100,
+    RUScrollDirectionUp
+}RUScrollDirection;
