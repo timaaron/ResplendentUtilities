@@ -134,7 +134,7 @@
 
 -(CGFloat)height
 {
-    return CGRectGetHeight([UIScreen mainScreen].bounds);
+    return 44.0f;
 }
 
 -(CGFloat)animatableContentViewLowerPadding
