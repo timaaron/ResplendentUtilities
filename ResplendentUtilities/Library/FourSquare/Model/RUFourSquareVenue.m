@@ -41,6 +41,12 @@
     return self;
 }
 
+-(NSString *)description
+{
+    return RUStringWithFormat(@"%@ uid: %@ name: %@",[super description],self.uid,self.name);
+}
+
+#pragma mark - Getters
 -(NSString *)uid
 {
     return [_infoDict objectForKey:@"id"];
