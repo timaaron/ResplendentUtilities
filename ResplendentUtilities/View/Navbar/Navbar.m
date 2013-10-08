@@ -46,21 +46,22 @@
 {
     [super layoutSubviews];
 
-    [_animatableContentView setFrame:self.animatableContentViewFrame];
+    CGRect animatableContentViewFrame = self.animatableContentViewFrame;
+    [_animatableContentView setFrame:animatableContentViewFrame];
 
     if (_autoAdjustButtons)
     {
         if (_leftButton)
         {
             CGSize size = _leftButton.frame.size;
-            CGFloat yCoord = CGRectGetVerticallyAlignedYCoordForHeightOnHeight(size.height, CGRectGetHeight(self.frame) - self.animatableContentViewLowerPadding);
+            CGFloat yCoord = CGRectGetVerticallyAlignedYCoordForHeightOnHeight(size.height, CGRectGetHeight(animatableContentViewFrame) - self.animatableContentViewLowerPadding);
             [_leftButton setFrame:(CGRect){(self.leftButtonLeftPadding ? self.leftButtonLeftPadding.floatValue : yCoord),yCoord,size}];
         }
 
         if (_rightButton)
         {
             CGSize size = _rightButton.frame.size;
-            CGFloat yCoord = CGRectGetVerticallyAlignedYCoordForHeightOnHeight(size.height, CGRectGetHeight(self.frame) - self.animatableContentViewLowerPadding);
+            CGFloat yCoord = CGRectGetVerticallyAlignedYCoordForHeightOnHeight(size.height, CGRectGetHeight(animatableContentViewFrame) - self.animatableContentViewLowerPadding);
             [_rightButton setFrame:(CGRect){ceil(CGRectGetWidth(self.frame) - size.width - (self.rightButtonRightPadding ? self.rightButtonRightPadding.floatValue : yCoord)),yCoord,size}];
         }
     }
